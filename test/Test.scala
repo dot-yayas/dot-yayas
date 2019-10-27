@@ -1,16 +1,14 @@
 package dot.yayas.test
 
-class Propertie[A](
+class Property[A](
 	// The name of the test
 	val name: String,
 	// A short description of the condition
 	val description: String,
 	// Generator of random values for the input
 	val generate: () => A,
-	// A precondition for the input
-	val precondition: Option[A => Boolean],
 	// The propertie to be satisfied
-	val propertie: A => Boolean)
+	val propertie: A => Option[Boolean])
 {
 
 	// Number of succed tests
@@ -24,24 +22,19 @@ class Propertie[A](
 		var passed = 0
 		var discarded = 0
 		var max_discarded = this.success * this.ratio
-		val precondition: (A => Boolean) = this.precondition match {
-			case Some(fn) => fn
-			case None => (x => true)
-		}
 		println("=== " + this.name)
 		println("=== " + this.description)
 		while(passed < this.success && discarded < max_discarded) {
 			var data = generate()
-			if(precondition(data)) {
-				if(!propertie(data)) {
+			propertie(data) match {
+				case Some(false) => {
 					println(s"*** Failed! Falsified (after $passed tests):")
 					println(data + "\n")
 					return false
 				}
-			} else {
-				discarded = discarded+1
+				case Some(true) => passed += 1
+				case None => discarded = discarded+1
 			}
-			passed += 1
 		}
 		println(s"+++ OK, passed $passed tests; $discarded discarded.\n")
 		return true
@@ -52,7 +45,7 @@ class Propertie[A](
 trait Test {
 
 	// List of properties to test
-	val properties: List[Propertie[_]]
+	val properties: List[Property[_]]
 
 	// Runs all the tests
 	def run_all(): Boolean =
