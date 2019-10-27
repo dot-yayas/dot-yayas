@@ -44,9 +44,9 @@ object YayasTypeRandom {
 
 }
 
-object TestTypes extends Testeable {
+object TestTypes extends Test {
 
-	val prop_substitution_id = new Test[YayasType](
+	val prop_substitution_id = new Propertie[YayasType](
 		"prop_substitution_id",
 		"A term should be equal to itself after applying the identity substitution",
 		YayasTypeRandom.term,

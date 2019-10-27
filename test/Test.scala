@@ -1,6 +1,6 @@
 package dot.yayas.test
 
-class Test[A](
+class Propertie[A](
 	// The name of the test
 	val name: String,
 	// A short description of the condition
@@ -49,10 +49,10 @@ class Test[A](
 
 }
 
-trait Testeable {
+trait Test {
 
 	// List of properties to test
-	val properties: List[Test[_]]
+	val properties: List[Propertie[_]]
 
 	// Runs all the tests
 	def run_all(): Boolean =

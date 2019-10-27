@@ -2,7 +2,7 @@ package dot.yayas.test
 
 object Main {
 
-	val tests: List[Testeable] = List(TestTypes)
+	val tests: List[Test] = List(TestTypes)
 
 	def main(args: Array[String]): Unit = {
 		println("Running tests...\n")
