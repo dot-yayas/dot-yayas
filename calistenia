@@ -7,7 +7,7 @@ function clean {
 
 ## Compile dot-yayas
 function compile {
-    files=$(find src -name "*.scala")
+    files=$(find ./src -name "*.scala")
     mkdir -p build
     scalac -d build -deprecation $files
 }
