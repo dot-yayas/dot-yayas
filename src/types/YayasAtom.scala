@@ -7,7 +7,7 @@ case class YayasAtom(val value: String) extends YayasType {
 	def get_yayas_type(): String = "Atom"
 
 	// Applies a substitution to a dot-yayas atom
-	override def apply(substitution: Map[YayasAtom, YayasType]): YayasType =
+	override def apply_substitution(substitution: Map[YayasAtom, YayasType]): YayasType =
 		substitution.get(this) match {
 			case Some(expr) => expr
 			case None => this

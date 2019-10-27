@@ -7,6 +7,6 @@ case class YayasChar(val value: Char) extends YayasType {
 	def get_yayas_type(): String = "Character"
 
 	// Returns a string representation of the dot-yayas character
-	override def to_string(): String = "'" + this.value.toString() + "'"
+	override def show(): String = "'" + this.value.toString() + "'"
 
 }

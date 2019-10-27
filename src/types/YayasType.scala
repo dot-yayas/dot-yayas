@@ -10,9 +10,9 @@ trait YayasType {
 	def get_yayas_type(): String
 
 	// Returns a string representation of the dot-yayas data
-	def to_string(): String = this.value.toString()
+	def show(): String = this.value.toString()
 
 	// Applies a substitution to a dot-yayas expression
-	def apply(substitution: Map[YayasAtom, YayasType]): YayasType = this
+	def apply_substitution(substitution: Map[YayasAtom, YayasType]): YayasType = this
 
 }

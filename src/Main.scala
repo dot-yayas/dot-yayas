@@ -11,7 +11,7 @@ object Main {
 			YayasChar('a'),
 			YayasList(List())
 		))
-		println(data.to_string())
+		println(data.show())
 	}
 
 }
