@@ -13,6 +13,10 @@ case class YayasList(val value: List[YayasType]) extends YayasType {
 	override def show(): String =
 		"(" + this.value.map(x => x.show()).mkString(" ") + ")"
 
+	// Cheks weather the dot-yayas list contains a given term
+	override def contains(term: YayasType): Boolean =
+		term == this || this.value.map(x => x.contains(term)).fold(false)(_ || _)
+
 	// Applies a substitution to a dot-yayas list
 	override def apply_substitution(substitution: Map[YayasAtom, YayasType]): YayasType =
 		YayasList(this.value.map(x => x.apply_substitution(substitution)))

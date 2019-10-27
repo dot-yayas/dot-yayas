@@ -12,6 +12,9 @@ trait YayasType {
 	// Returns a string representation of the dot-yayas data
 	def show(): String = this.value.toString()
 
+	// Cheks weather the dot-yayas value contains a given term
+	def contains(term: YayasType): Boolean = term == this
+
 	// Applies a substitution to a dot-yayas expression
 	def apply_substitution(substitution: Map[YayasAtom, YayasType]): YayasType = this
 
