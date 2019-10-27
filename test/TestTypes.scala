@@ -24,28 +24,36 @@ object YayasTypeRandom {
 
 	// Generates a random dot-yayas atom
 	def atom(): YayasAtom = {
-		var atom = YayasAtom(rand.nextString(10))
+		var atom = YayasAtom(rand.nextString(10).map(
+			x => ('a' to 'z').charAt(rand.nextInt(26))))
 		last_random_atom = Some(atom)
 		return atom
 	}
 	
 	// Generates a random dot-yayas list
-	def list(): YayasList = {
+	def list(): YayasType = YayasTypeRandom.list(1)
+
+	// Generates a random dot-yayas list
+	def list(prob: Double): YayasList = {
 		val len = rand.nextInt(10)
 		var list = new ListBuffer[YayasType]()
 		for(i <- 0 to len)
-			list += term()
+			list += term(prob)
 		YayasList(list.toList)
 	}
+
+	// Generates a random dot-yayas term
+	def term(): YayasType = YayasTypeRandom.term(0.2)
 	
 	// Generates a random dot-yayas term
-	def term(): YayasType =
-		rand.nextInt(4) match {
+	def term(prob: Double): YayasType =
+		if(rand.nextDouble() < prob)
+			list(prob * 0.8)
+		else rand.nextInt(4) match {
 			case 0 => int()
 			case 1 => float()
 			case 2 => char()
 			case 3 => atom()
-			case 4 => list()
 		}
 
 }
