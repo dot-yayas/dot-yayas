@@ -1,4 +1,6 @@
+package dot.yayas.test
 import dot.yayas.types._
+import scala.collection.mutable.ListBuffer
 
 object YayasTypeRandom {
 
@@ -27,7 +29,7 @@ object YayasTypeRandom {
 		var list = new ListBuffer[YayasType]()
 		for(i <- 0 to len)
 			list += term()
-		YayasList(list.toList())
+		YayasList(list.toList)
 	}
 	
 	// Generates a random dot-yayas term

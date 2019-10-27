@@ -1,0 +1,48 @@
+#!/bin/bash
+
+## Remove class directories
+function clean {
+    rm -rf build build_test
+}
+
+## Compile dot-yayas
+function compile {
+    files=$(find src -name "*.scala")
+    mkdir -p build
+    scalac -d build -deprecation $files
+}
+
+## Run dot-yayas
+function run {
+    cd build
+    scala dot.yayas.Main
+    cd ..
+}
+
+## Compile the tests
+function compile_test {
+    files=`find ./test -name "*.scala"`
+    mkdir -p build_test
+    scalac -classpath build -d build_test $files
+}
+
+## Run the tests
+function test {
+    compile_test
+    cd build_test
+    scala dot.yayas.test.Main
+    cd ..
+}
+
+## Compile dot-yayas and run the tests
+function all {
+    clean && compile && test
+}
+
+options=(clean compile run test all)
+
+for option in $@; do
+    if [[ " ${options[@]} " =~ " ${option} " ]]; then
+        $option
+    fi
+done
