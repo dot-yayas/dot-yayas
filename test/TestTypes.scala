@@ -43,3 +43,16 @@ object YayasTypeRandom {
 		}
 
 }
+
+object TestTypes extends Testeable {
+
+	val prop_substitution_id = new Test[YayasType](
+		"prop_substitution_id",
+		"A term should be equal to itself after applying the identity substitution",
+		YayasTypeRandom.term,
+		None,
+		x => x == x.apply_substitution(Map[YayasAtom, YayasType]()))
+	
+	val properties = List(prop_substitution_id)
+
+}

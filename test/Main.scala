@@ -1,7 +1,13 @@
 package dot.yayas.test
 
 object Main {
-    def main(args: Array[String]): Unit = {
-        println("Running tests")
-    }
+
+	val tests: List[Testeable] = List(TestTypes)
+
+	def main(args: Array[String]): Unit = {
+		println("Running tests...\n")
+		val result = this.tests.map(test => test.run_all()).fold(true)(_ && _)
+		if(result) println("True.") else println("False.")
+	}
+
 }
