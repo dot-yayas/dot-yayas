@@ -77,9 +77,17 @@ object TestTypes extends Test {
 			}
 		}
 	)
+
+	val prop_contains_reflexive = new Property[YayasType](
+		"prop_contains_reflexive",
+		"A term should contain itself.",
+		YayasTypeRandom.term,
+		x => Some(x.contains(x))
+	)
 	
 	val properties = List(
 		prop_substitution_id,
-		prop_substitution_domain)
+		prop_substitution_domain,
+		prop_contains_reflexive)
 
 }

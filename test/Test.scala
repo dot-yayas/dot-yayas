@@ -7,8 +7,8 @@ class Property[A](
 	val description: String,
 	// Generator of random values for the input
 	val generate: () => A,
-	// The propertie to be satisfied
-	val propertie: A => Option[Boolean])
+	// The property to be satisfied
+	val property: A => Option[Boolean])
 {
 
 	// Number of succed tests
@@ -26,7 +26,7 @@ class Property[A](
 		println("=== " + this.description)
 		while(passed < this.success && discarded < max_discarded) {
 			var data = generate()
-			propertie(data) match {
+			property(data) match {
 				case Some(false) => {
 					println(s"*** Failed! Falsified (after $passed tests):")
 					println(data + "\n")
@@ -47,7 +47,7 @@ trait Test {
 	// List of properties to test
 	val properties: List[Property[_]]
 
-	// Runs all the tests
+	// Tests all the properties
 	def run_all(): Boolean =
 		this.properties.map(prop => prop.run()).fold(true)(_ && _)
 
