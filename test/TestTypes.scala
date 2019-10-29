@@ -63,14 +63,14 @@ object TestTypes extends Test {
 	val prop_substitution_id = new Property[YayasType](
 		"prop_substitution_id",
 		"A term should be equal to itself after applying the identity substitution.",
-		YayasTypeRandom.term,
+		() => YayasTypeRandom.term(),
 		x => Some(x == x.apply_substitution(Map[YayasAtom, YayasType]()))
 	)
 	
 	val prop_substitution_domain = new Property[YayasType](
 		"prop_substitution_domain",
 		"A term should not contain an atom after applying a substitution whose domain contains that atom.",
-		YayasTypeRandom.term,
+		() => YayasTypeRandom.term(),
 		x => {
 			var last_atom = YayasTypeRandom.last_random_atom
 			var atom = last_atom match {
@@ -89,7 +89,7 @@ object TestTypes extends Test {
 	val prop_contains_reflexive = new Property[YayasType](
 		"prop_contains_reflexive",
 		"A term should contain itself.",
-		YayasTypeRandom.term,
+		() => YayasTypeRandom.term(),
 		x => Some(x.contains(x))
 	)
 	
