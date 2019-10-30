@@ -29,26 +29,23 @@ object YayasTypeRandom {
 		last_random_atom = Some(atom)
 		return atom
 	}
-	
-	// Generates a random dot-yayas list
-	def list(): YayasType = YayasTypeRandom.list(1)
 
-	// Generates a random dot-yayas list
-	def list(prob: Double): YayasList = {
-		val len = rand.nextInt(10)
-		var list = new ListBuffer[YayasType]()
-		for(i <- 0 to len)
-			list += term(prob)
-		YayasList(list.toList)
-	}
+	// Generates a random dot-yayas cons
+	def cons(): YayasType =
+		YayasTypeRandom.cons(1)
+	
+	// Generates a random dot-yayas cons with a certain probability
+	def cons(prob: Double): YayasCons =
+		YayasCons(YayasTypeRandom.term(prob), YayasTypeRandom.term(prob))
 
 	// Generates a random dot-yayas term
-	def term(): YayasType = YayasTypeRandom.term(0.2)
+	def term(): YayasType =
+		YayasTypeRandom.term(0.2)
 	
-	// Generates a random dot-yayas term
+	// Generates a random dot-yayas term with a certain probability
 	def term(prob: Double): YayasType =
 		if(rand.nextDouble() < prob)
-			list(prob * 0.8)
+			cons(prob * 0.8)
 		else rand.nextInt(4) match {
 			case 0 => int()
 			case 1 => float()
