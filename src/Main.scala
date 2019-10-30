@@ -4,13 +4,12 @@ import dot.yayas.types._
 object Main {
 
 	def main(args: Array[String]): Unit = {
-		var data: YayasList = YayasList(List(
+		var data: YayasCons = YayasCons(
 			YayasAtom("visualizalo"),
-			YayasInt(42),
-			YayasFloat(6.73),
-			YayasChar('a'),
-			YayasList(List())
-		))
+			YayasCons(YayasInt(42),
+			YayasCons(YayasFloat(6.73),
+			YayasCons(YayasChar('a'),
+				YayasAtom("nil")))))
 		println(data.show())
 	}
 
