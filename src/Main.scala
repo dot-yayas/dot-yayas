@@ -21,14 +21,56 @@ object Main {
 		println(env1.lookup(new YayasAtom("x")).show())
 		println(env2.lookup(new YayasAtom("x")).show())
 		println(env3.lookup(new YayasAtom("x")).show())
-		// Builtins
-		var builtins: Environment = new Environment()
-		builtins.assign(new YayasAtom("id"),
-			new YayasFunction( (List(new YayasAtom("x")), new YayasAtom("x")) ))
-		println(builtins.eval(new YayasCons(
+		// Calls
+		var env: Environment = new Environment()
+		env.assign(new YayasAtom("x"), new YayasInt(88))
+		env.assign(new YayasAtom("id"), new YayasFunction((
+			List(new YayasAtom("x")),
+			new YayasAtom("x"))
+		))
+		env.assign(new YayasAtom("+"), new YayasFunction((
+			List(),
+			new YayasCons(
+				new YayasAtom("syscall"),
+				new YayasCons(
+					new YayasAtom("add"),
+					new YayasCons(
+						new YayasAtom("..."),
+						new YayasAtom("nil")
+					)
+				)
+			)
+		)))
+		data = new YayasCons(
 			new YayasAtom("id"),
 			new YayasCons(new YayasInt(5),
-			new YayasAtom("nil")))).show())
+			new YayasAtom("nil")))
+		println(data.show() + " => " + env.eval(data).show())
+		
+		data = new YayasCons(
+			new YayasAtom("syscall"),
+			new YayasCons(
+				new YayasAtom("add"),
+				new YayasCons(
+					new YayasIdentity(
+						new YayasCons(new YayasInt(1),
+						new YayasCons(new YayasAtom("x"),
+						new YayasCons(new YayasInt(3),
+						new YayasAtom("nil"))))),
+					new YayasAtom("nil"))))
+		println(data.show() + " => " + env.eval(data).show())
+
+		data = new YayasCons(new YayasAtom("+"), new YayasAtom("nil"))
+		println(data.show() + " => " + env.eval(data).show())
+		
+		data = new YayasCons(
+			new YayasAtom("+"),
+			new YayasCons(
+				new YayasInt(1),
+				new YayasCons(
+					new YayasInt(2),
+					new YayasAtom("nil"))))
+		println(data.show() + " => " + env.eval(data).show())
 	}
 
 }
