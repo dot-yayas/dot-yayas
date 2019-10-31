@@ -45,7 +45,7 @@ object Main {
 			new YayasAtom("id"),
 			new YayasCons(new YayasInt(5),
 			new YayasAtom("nil")))
-		println(data.show() + " => " + env.eval(data).show())
+		println(data.show() + " => " + data.eval(env).show())
 		
 		data = new YayasCons(
 			new YayasAtom("syscall"),
@@ -58,10 +58,10 @@ object Main {
 						new YayasCons(new YayasInt(3),
 						new YayasAtom("nil"))))),
 					new YayasAtom("nil"))))
-		println(data.show() + " => " + env.eval(data).show())
+		println(data.show() + " => " + data.eval(env).show())
 
 		data = new YayasCons(new YayasAtom("+"), new YayasAtom("nil"))
-		println(data.show() + " => " + env.eval(data).show())
+		println(data.show() + " => " + data.eval(env).show())
 		
 		data = new YayasCons(
 			new YayasAtom("+"),
@@ -70,7 +70,7 @@ object Main {
 				new YayasCons(
 					new YayasInt(2),
 					new YayasAtom("nil"))))
-		println(data.show() + " => " + env.eval(data).show())
+		println(data.show() + " => " + data.eval(env).show())
 	}
 
 }

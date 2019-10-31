@@ -1,4 +1,5 @@
 package dot.yayas.types
+import dot.yayas.Environment
 
 // Trait for dot-yayas expressions
 trait YayasType {
@@ -20,5 +21,8 @@ trait YayasType {
 
 	// Returns a list of yayas terms
 	def to_list(): Option[List[YayasType]] = None
+
+	// Evaluates the dot-yayas term into an environment
+	def eval(env: Environment): YayasType = this
 
 }
