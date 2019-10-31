@@ -26,8 +26,8 @@ class Environment(
 	
 	// Returns the result of evaluating an expression in
 	// the current environment.
-	def eval(expr: YayasType): YayasType =
-		expr.get_yayas_type() match {
+	def eval(expr: YayasType): YayasType = {
+		val result = expr.get_yayas_type() match {
 			case "Atom" => this.lookup(expr.asInstanceOf[YayasAtom])
 			case "Cons" => {
 				val name = expr.asInstanceOf[YayasCons].value._1
@@ -46,7 +46,7 @@ class Environment(
 					val sysargs: List[YayasType] = args.drop(1).toList
 					if(syscall.get_yayas_type() != "Atom")
 						return expr // Type error
-					return syscall.value match {
+					syscall.value match {
 						case "add" => sysargs(0).to_list() match {
 							case None => expr // Type error
 							case Some(list) => YayasInt(list.map(x => this.eval(x).asInstanceOf[YayasInt].value).sum)
@@ -66,14 +66,19 @@ class Environment(
 						env.assign(arg, this.eval(cdr.value._1))
 					}
 					env.assign(new YayasAtom("..."), cdr.value._2)
-					/*if(cdr.value._2.get_yayas_type() != "Atom" || cdr.value._2.value != "nil")
-						return expr // Type error*/
-					return env.eval(fn)	
+					env.eval(fn.with_environment(env))	
 				}
 			}
 			case "Identity" => expr.asInstanceOf[YayasIdentity].value
-			case "Function" => this.eval(expr.asInstanceOf[YayasFunction].body)
+			case "Function" => {
+				val fn = expr.asInstanceOf[YayasFunction]
+				fn.environment.eval(fn.body)
+			}
 			case _ => expr
 		}
+		if(result.get_yayas_type() == "Function")
+			return result.asInstanceOf[YayasFunction].with_environment(this)
+		return result
+	}
 
 }

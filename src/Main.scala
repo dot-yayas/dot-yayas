@@ -27,7 +27,7 @@ object Main {
 		env.assign(new YayasAtom("id"), new YayasFunction((
 			List(new YayasAtom("x")),
 			new YayasAtom("x"))
-		))
+		, env))
 		env.assign(new YayasAtom("+"), new YayasFunction((
 			List(),
 			new YayasCons(
@@ -40,7 +40,7 @@ object Main {
 					)
 				)
 			)
-		)))
+		), env))
 		data = new YayasCons(
 			new YayasAtom("id"),
 			new YayasCons(new YayasInt(5),
