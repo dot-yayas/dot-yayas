@@ -12,5 +12,9 @@ case class YayasAtom(val value: String) extends YayasType {
 			case Some(expr) => expr
 			case None => this
 		}
+	
+	// Returns a list of yayas terms
+	override def to_list(): Option[List[YayasType]] =
+		if(this.value == "nil") Some(List()) else None
 
 }

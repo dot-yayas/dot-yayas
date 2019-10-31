@@ -18,4 +18,7 @@ trait YayasType {
 	// Applies a substitution to a dot-yayas expression
 	def apply_substitution(substitution: Map[YayasAtom, YayasType]): YayasType = this
 
+	// Returns a list of yayas terms
+	def to_list(): Option[List[YayasType]] = None
+
 }

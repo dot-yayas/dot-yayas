@@ -1,6 +1,6 @@
 package dot.yayas.types
 
-// Trait for dot-yayas functions
+// Class for dot-yayas functions
 case class YayasFunction(val value: (List[YayasAtom], YayasType)) extends YayasType {
 
     // Returns the formal parameters of the yayas function
